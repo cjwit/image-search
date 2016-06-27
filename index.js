@@ -5,9 +5,13 @@ var request = require('request');
 var googleAPI = config.googleAPI;
 var searchID = config.searchID;
 
-app.get('/search/:query', function(req, res) {
-    var query = req.params.query;
-    var url = 'https://www.googleapis.com/customsearch/v1?q=' + query + '&cx=' + searchID + '&key=' + googleAPI;
+app.get('/search/:search', function(req, res) {
+    var search = req.params.search;
+    var offset = req.query.offset;
+    var url = 'https://www.googleapis.com/customsearch/v1?q=' + search + '&cx=' + searchID + '&key=' + googleAPI;
+    if (offset) {
+        url += '&start=' + offset;
+    }
     request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var items = JSON.parse(body).items;
