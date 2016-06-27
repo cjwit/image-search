@@ -35,6 +35,10 @@ app.get('/search/:search', function(req, res) {
     });
 });
 
+app.get('/', function(req, res) {
+	res.sendFile(process.cwd() + '/public/index.html');
+});
+
 var port = process.env.PORT || 8000;
 app.listen(port);
 console.log('server listening on port', port, '...');
